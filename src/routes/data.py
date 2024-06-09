@@ -1,10 +1,10 @@
 from fastapi import FastAPI, APIRouter, Depends, UploadFile, status
 from fastapi.responses import JSONResponse
 import os
-from helpers.config import get_settings, Settings
-from controllers import DataController, ProjectController
+from src.helpers.config import get_settings, Settings
+from src.controllers import DataController, ProjectController
 import aiofiles
-from models import ResponseSignal
+from src.models import ResponseSignal
 import logging
 
 logger = logging.getLogger('uvicorn.error')
