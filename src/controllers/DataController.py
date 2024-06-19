@@ -5,7 +5,7 @@ from src.models import ResponseSignal
 import re
 import os
 
-class DataController(BaseController):
+class  DataController(BaseController):
     
     def __init__(self):
         super().__init__()
