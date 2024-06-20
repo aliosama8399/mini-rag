@@ -83,7 +83,7 @@ async def process_endpoint(project_id: str,process_request: ProcessRequest):
             content={
                 "signal": ResponseSignal.PROCESSING_FAILED.value
             }
-        )
+        ) 
 
     return file_chunks
  

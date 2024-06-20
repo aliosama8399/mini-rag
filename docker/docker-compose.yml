@@ -1,0 +1,17 @@
+services:
+  mongodb:
+    image: mongo:8.0-rc-jammy
+
+    container_name: mongodb
+    
+    ports:
+      - 33468:27017
+    volumes:
+      - ./mongodb:/data/db
+    networks:
+      - backend
+    
+    restart: always
+  
+networks:
+  backend:
