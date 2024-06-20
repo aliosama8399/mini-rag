@@ -3,7 +3,7 @@ from typing import Optional
 from bson.objectid import ObjectId
 
 class Project (BaseModel):
-    _id: Optional [ObjectId]
+    id: Optional [ObjectId]=Field(None, alias="_id")
     project_id:str =Field(...,min_length=1)
     
 
@@ -14,7 +14,7 @@ class Project (BaseModel):
             raise ValueError('project_id must be alphanumeric')
         return value
     
-    class config(object):
+    class Config(object):
        arbitrary_types_allowed=True
             
         
