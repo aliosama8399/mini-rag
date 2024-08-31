@@ -18,7 +18,7 @@ class CohereProvider(LLMInterface):
         self.client= cohere.Client(api_key=self.api_key)
         self.logger= logging.getLogger(__name__)
         
-
+        self.enums=CohereEnums
      def set_generation_model(self, model_id:str):
                 self.generation_model_id=model_id
 
@@ -42,13 +42,13 @@ class CohereProvider(LLMInterface):
         
 
         max_output_tokens =max_output_tokens if max_output_tokens else self.default_generation_max_output
-        temprature = temprature if temprature else self.default_generation_temprature
+        temprature = temprature if temprature else self.default_generation_temperature
  
         response= self.client.chat(
                model= self.generation_model_id,
                chat_history=chat_history,
-               messages=self.process_text(prompt),
-               temprature=temprature,
+               message=self.process_text(prompt),
+               temperature=temprature,
                max_tokens=max_output_tokens
                )
 
