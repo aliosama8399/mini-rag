@@ -4,7 +4,7 @@ import os
 from langchain_community.document_loaders import TextLoader
 from langchain_community.document_loaders import PyMuPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from src.models import ProcessingEnum
+from models import ProcessingEnum
 class ProcessConrtoller(BaseController):
     def __init__(self,project_id:str):
         super().__init__()

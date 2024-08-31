@@ -5,17 +5,17 @@ import logging
 
 class CohereProvider(LLMInterface):
      def __init__(self, api_key:str, default_input_max_characters:int=1000,default_generation_max_output:int=1000,
-                 default_generation_temprature:float=0.1):
+                 default_generation_temperature:float=0.1):
                       
         self.api_key=api_key
         self.default_input_max_characters=default_input_max_characters
         self.default_generation_max_output=default_generation_max_output
-        self.default_generation_temprature=default_generation_temprature
+        self.default_generation_temperature=default_generation_temperature
         self.generation_model_id=None
         self.embedding_model_id=None
         self.embedding_size=None
 
-        self.client= cohere.client(api_key=self.api_key)
+        self.client= cohere.Client(api_key=self.api_key)
         self.logger= logging.getLogger(__name__)
         
 
@@ -76,7 +76,7 @@ class CohereProvider(LLMInterface):
 
         response =self.client.embed(
             model= self.embedding_model_id,
-            text=[self.process_text(text)],
+            texts = [self.process_text(text)],
             input_type=input_type,
             embedding_types=['float'],
         )

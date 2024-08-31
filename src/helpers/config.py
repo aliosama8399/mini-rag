@@ -31,8 +31,8 @@ class Settings(BaseSettings):
     VECTOR_DB_DISTANCE_METHOD: str = None
 
     class Config:
-        env_file = "src/.env"
-
+        env_file = ".env"
+        
 
 def get_settings():
     return Settings()

@@ -4,21 +4,21 @@ import logging
 from ..LLMEnum import OpenAIEnums
 class OpenAIProvider(LLMInterface):
 
-    def __init__(self, api_key:str, api_url:str=None, default_input_max_characters:int=1000,default_generation_max_output:int=1000,
-                 default_generation_temprature:float=0.1):
+    def __init__(self, api_key:str, default_input_max_characters:int=1000,default_generation_max_output_tokens:int=1000,
+                 default_generation_temperature:float=0.1, api_url:str = None):
                      
         self.api_key=api_key
         self.api_url=api_url
         self.default_input_max_characters=default_input_max_characters
-        self.default_generation_max_output=default_generation_max_output
-        self.default_generation_temprature=default_generation_temprature
+        self.default_generation_max_output_tokens=default_generation_max_output_tokens
+        self.default_generation_temperature=default_generation_temperature
         self.generation_model_id=None
         self.embedding_model_id=None
         self.embedding_size=None
 
         self.client= OpenAI(
             api_key=self.api_key,
-            api_url=self.api_url
+            base_url=self.api_url
         )
 
         self.logger= logging.getLogger(__name__)
