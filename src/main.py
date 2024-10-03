@@ -51,5 +51,5 @@ async def shutdown_span():
 app.include_router(base.base_router)
 app.include_router(data.data_router)
 app.include_router(nlp.nlp_router)
-# if __name__ == '__main__':
-#     uvicorn.run(app,  port=8000)
+if __name__ == '__main__':
+    uvicorn.run(app,  port=8000)
