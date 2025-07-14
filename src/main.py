@@ -6,18 +6,24 @@ from helpers.config import get_settings
 from stores.llm.LLMProviderFactory import LLMProviderFactory
 from stores.vectordb.VectorDBProviderFactory import VectorDBProviderFactory
 from stores.llm.templates.template_parser import TemplateParser
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+from sqlalchemy.orm import sessionmaker
+from utils.metrics import setup_metrics
 app = FastAPI()  
- 
-@app.on_event("startup")
+
+setup_metrics(app)
 
 async def startup_span():
     settings=get_settings()
+    # app.mongo_conn= AsyncIOMotorClient(settings.MONGODB_URL)
+    postgres_conn = f"postgresql+asyncpg://{settings.POSTGRES_USER}:{settings.POSTGRES_PASSWORD}@{settings.POSTGRES_HOST}:{settings.POSTGRES_PORT}/{settings.POSTGRES_MAIN_DATABASE}"
+    app.db_engine = create_async_engine(postgres_conn, echo=True)
 
-    app.mongo_conn= AsyncIOMotorClient(settings.MONGODB_URL)
-    app.db_client= app.mongo_conn[settings.MONGO_DATABASE]
+    # app.db_client= app.mongo_conn[settingsP.MONGO_DATABASE]
+    app.db_client= sessionmaker(bind=app.db_engine, class_=AsyncSession, expire_on_commit=False)
 
     llm_provider_factory=LLMProviderFactory(settings)
-    vectordb_provider_factory=VectorDBProviderFactory(settings)
+    vectordb_provider_factory=VectorDBProviderFactory(config=settings,db_client=app.db_client)
 
     app.generation_client= llm_provider_factory.create(providers=settings.GENERATION_BACKEND)
     app.generation_client.set_generation_model(model_id=settings.GENERATION_MODEL_ID)
@@ -31,18 +37,22 @@ async def startup_span():
     app.vectordb_client = vectordb_provider_factory.create(
         providers= settings.VECTOR_DB_BACKEND
     )
-    app.vectordb_client.connect()
+    await app.vectordb_client.connect()
 
     app.template_parser=TemplateParser(
         language=settings.PRIMARY_LANG,
         default_language=settings.DEFAULT_LANG,
     )
-@app.on_event("shutdown")
 
 async def shutdown_span():
-    app.mongo_conn.close()
-    app.vectordb_client.disconnect()
+    
+    # app.mongo_conn.close()
+    app.db_engine.dispose()
+    await app.vectordb_client.disconnect()
 
+
+app.on_event("startup")(startup_span)
+app.on_event("shutdown")(shutdown_span)
 
 # app.router.lifespan.on_startup.append(startup_span)
 # app.router.lifespan_context(startup_span)
