@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     # MONGODB_URL:str
     # MONGO_DATABASE:str
 
-    POSTGRES_USERNAME: str
+    POSTGRES_USER: str
     POSTGRES_PASSWORD: str
     POSTGRES_HOST: str
     POSTGRES_PORT: int
