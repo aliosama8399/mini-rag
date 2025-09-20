@@ -19,6 +19,10 @@ class ResponseSignal(Enum):
     VECTORDB_SEARCH_SUCCESS='VECTORDB_SEARCH_SUCCESS'
     RAG_ANSWER_SUCCESS='RAG_ANSWER_SUCCESS'
     RAG_ANSWER_ERROR='RAG_ANSWER_ERROR'
+    PROCESSING_STARTED="processing_started"
+    PROJECT_NOT_FOUND_ERROR="project_not_found_error"
+    DATA_PUSH_TASK_READY="data_push_task_ready"
+    PROCESS_AND_PUSH_WORKFLOW_READY="process_and_push_workflow_ready"
   
    
 

@@ -21,24 +21,34 @@ class Settings(BaseSettings):
     GENERATION_BACKEND: str
     EMBEDDING_BACKEND: str
 
-    OPENAI_API_KEY: str = None
-    OPENAI_API_URL: str = None
-    COHERE_API_KEY: str = None
-    GENERATION_MODEL_ID_LITERAL: List[str] = None
-    GENERATION_MODEL_ID: str = None
-    EMBEDDING_MODEL_ID: str = None
-    EMBEDDING_MODEL_SIZE: int = None
-    INPUT_DAFAULT_MAX_CHARACTERS: int = None
-    GENERATION_DAFAULT_MAX_TOKENS: int = None
-    GENERATION_DAFAULT_TEMPERATURE: float = None
-    VECTOR_DB_BACKEND_LITERAL: List[str] = None
+    OPENAI_API_KEY: str 
+    OPENAI_API_URL: str 
+    COHERE_API_KEY: str 
+    GENERATION_MODEL_ID_LITERAL: List[str] 
+    GENERATION_MODEL_ID: str 
+    EMBEDDING_MODEL_ID: str 
+    EMBEDDING_MODEL_SIZE: int 
+    INPUT_DAFAULT_MAX_CHARACTERS: int  
+    GENERATION_DAFAULT_MAX_TOKENS: int  
+    GENERATION_DAFAULT_TEMPERATURE: float  
+    VECTOR_DB_BACKEND_LITERAL: List[str]  
     VECTOR_DB_BACKEND : str
     VECTOR_DB_PATH : str
-    VECTOR_DB_DISTANCE_METHOD: str = None
+    VECTOR_DB_DISTANCE_METHOD: str  
     VECTOR_DB_PGVEC_INDEX_THRESHOLD: int = 100
 
     DEFAULT_LANG:str ="en"
-    PRIMARY_LANG:str ="en"
+    PRIMARY_LANG:str ="ar"
+    # Celery Configuration
+    CELERY_BROKER_URL: str  
+    CELERY_RESULT_BACKEND: str  
+    CELERY_TASK_SERIALIZER: str 
+    CELERY_TASK_TIME_LIMIT: int 
+    CELERY_TASK_ACKS_LATE: bool
+    CELERY_WORKER_CONCURRENCY: int
+    CELERY_FLOWER_PASSWORD: str
+    
+
     class Config:
         env_file = ".env"
         

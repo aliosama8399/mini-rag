@@ -1,7 +1,10 @@
+from time import sleep
 from fastapi import FastAPI, APIRouter, Depends
 import os
 from helpers.config import get_settings, Settings
-
+import logging
+# from tasks.mail_service import send_email_reports
+logger = logging.getLogger('uvicorn.error')
 base_router = APIRouter(
     prefix="/api/v1",
     tags=["api_v1"],

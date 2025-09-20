@@ -10,7 +10,7 @@ from dataclasses import dataclass
 class Document:
     page_content: str
     metadata: dict
-class ProcessConrtoller(BaseController):
+class ProcessController(BaseController):
     def __init__(self,project_id:str):
         super().__init__()
 

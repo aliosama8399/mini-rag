@@ -1,4 +1,4 @@
-from pydantic import BaseModel,Field,field_validator
+from pydantic import BaseModel
 from.minirag_base import sqlalchemy_base
 from sqlalchemy import Column, Integer, DateTime, func, String, ForeignKey, Index
 from sqlalchemy.dialects.postgresql import UUID,JSONB
